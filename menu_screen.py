@@ -1,36 +1,35 @@
-from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
+from kivy.lang import Builder
 
-diseño = """
-
+KV = '''
 MDScreen:
     MDLabel:
-        text: "Gestion de Contactos"
-        haling: "center"
+        text: "Gestión de Contactos"
+        halign: "center"
         pos_hint: {"center_y": 0.8}
-        
+
     MDRaisedButton:
-        text: "Mostrar Contacto"
+        text: "Mostrar Contactos"
         pos_hint: {"center_x": 0.5, "center_y": 0.6}
-        on_press: app.root.current = "lista_contacto"
-    
+        on_press: app.root.current = "mostrar_contactos"
+
     MDRaisedButton:
         text: "Agregar Contacto"
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
-        on_press: app.root.current = "agregar_contacto"
-        
+        on_press: app.root.current = "Agregar_contacto"
+
     MDRaisedButton:
-        text: "modificar Contacto"
+        text: "Modificar Contacto"
         pos_hint: {"center_x": 0.5, "center_y": 0.4}
         on_press: app.root.current = "modificar_contacto"
-        
+
     MDRaisedButton:
-        text: "eliminar Contacto"
+        text: "Eliminar Contacto"
         pos_hint: {"center_x": 0.5, "center_y": 0.3}
         on_press: app.root.current = "eliminar_contacto"
-"""
+'''
 
 class MenuScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.add.widget(Builder.load_string(diseño))
+        self.add_widget(Builder.load_string(KV))
