@@ -17,7 +17,7 @@ class ContactoDB:
         """)
         self.conexion.commit()
 
-    def mostrar(self):
+    def cargar_datos(self):
         self.cursor.execute("SELECT * FROM contactos")
         return self.cursor.fetchall()
 
@@ -30,13 +30,18 @@ class ContactoDB:
         self.cursor.execute("DELETE FROM contactos WHERE id = ?", (contacto_id,))
         self.conexion.commit()
 
-    def editar(self, contacto_id, nombre, telefono, correo):
+    def actualizar(self, contacto_id, nombre, telefono, correo):
         self.cursor.execute("""
             UPDATE contactos 
             SET nombre = ?, telefono = ?, correo = ? 
             WHERE id = ?
         """, (nombre, telefono, correo, contacto_id))
         self.conexion.commit()
+
+    def buscar_por_nombre(self, nombre):
+        """Busca un contacto por nombre y devuelve los datos"""
+        self.cursor.execute("SELECT * FROM contactos WHERE nombre = ?", (nombre,))
+        return self.cursor.fetchone()
 
     def cerrar_conexion(self):
         self.conexion.close()

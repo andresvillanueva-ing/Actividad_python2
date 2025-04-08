@@ -16,7 +16,7 @@ class ContactosApp(MDApp):
         sm.add_widget(ListaContactosScreen(name="mostrar_contactos"))
         sm.add_widget(AgregarContactoScreen(name="Agregar_contacto"))
         sm.add_widget(EliminarContactoScreen(name="eliminar_contacto"))
-        sm.add_widget(ModificarContactoScreen(name="modificar_contacto"))
+        sm.add_widget(ModificarContactoScreen(self.db, name="modificar_contacto"))
         return sm
     
     def Agregar_contacto(self, nombre, telefono, correo):
@@ -24,6 +24,8 @@ class ContactosApp(MDApp):
             self.db.agregar(nombre, telefono, correo)
             print("Contacto agregado correctamente")
             self.root.current = "menu"
+            pantalla = self.root.get_screen("mostrar_contactos")
+            pantalla.actualizar_lista()
         else: 
             print("Todos los campos son obligatorios")
             
