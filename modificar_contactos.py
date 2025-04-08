@@ -42,7 +42,7 @@ class ModificarContactoScreen(MDScreen):
     def on_pre_enter(self):
         self.input_nombre.text = ""
         self.input_telefono.text = ""
-        self.input_correo.text = ""
+        self.input_correo.text = "" 
 
     #Buscar contacto por el nombre
     def buscar_contacto(self, instance):
