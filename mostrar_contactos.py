@@ -17,9 +17,11 @@ class ListaContactosScreen(MDScreen):
         self.dialog = None  
         self.create_ui()
 
+    #Actualizar la lista de contactos al entrar a la pantalla.
     def on_pre_enter(self):
         self.actualizar_lista()
 
+    #Interfaz de usuario de la pantalla, mostrar contactos.
     def create_ui(self):
         layout = MDBoxLayout(orientation="vertical", padding=dp(20), spacing=dp(10))
         
@@ -41,6 +43,7 @@ class ListaContactosScreen(MDScreen):
         self.add_widget(layout)
         self.actualizar_lista()
 
+    #Actualizar la lista de contactos en la base de datos.
     def actualizar_lista(self):
         self.container.clear_widgets()
         contactos = self.db.cargar_datos()
@@ -51,6 +54,7 @@ class ListaContactosScreen(MDScreen):
             for contacto in contactos:
                 self.container.add_widget(self.crear_tarjeta_contacto(contacto))
 
+    #Forma en que se muestran los contactos registrados.
     def crear_tarjeta_contacto(self, contacto):
         tarjeta = MDCard(orientation="vertical", padding=dp(10), size_hint_x=0.95, pos_hint={"center_x": 0.5}, size_hint_y=None, height=dp(120))
         
@@ -71,8 +75,6 @@ class ListaContactosScreen(MDScreen):
                 "correo": c[3]
             })
         )
-
-
         
         botones.add_widget(btn_eliminar)
         botones.add_widget(btn_modificar)
@@ -82,6 +84,7 @@ class ListaContactosScreen(MDScreen):
         
         return tarjeta
 
+    #Confirmacion de eliminacion.
     def confirmar_eliminar(self, contacto_id):
         self.dialog = MDDialog(
             title="Eliminar Contacto",
@@ -93,11 +96,13 @@ class ListaContactosScreen(MDScreen):
         )
         self.dialog.open()
 
+    #Eliminar el contacto de la base de datos.
     def eliminar_contacto(self, contacto_id):
         self.db.eliminar(contacto_id)  
         self.dialog.dismiss()
         self.actualizar_lista()
 
+    #Accion de modificar contactos, redirige a la pantalla modificar contacto.
     def modificar_contacto(self, contacto):
         self.manager.get_screen("modificar_contacto").cargar_datos(contacto) 
         self.manager.current = "modificar_contacto"

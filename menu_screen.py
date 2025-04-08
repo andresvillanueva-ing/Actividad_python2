@@ -1,6 +1,7 @@
 from kivymd.uix.screen import MDScreen
 from kivy.lang import Builder
 
+#Archivo KV, estilo de la pantalla, se muestran cada uno de los botones de accion. 
 KV = '''
 MDScreen:
     MDLabel:

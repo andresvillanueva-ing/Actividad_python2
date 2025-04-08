@@ -16,6 +16,7 @@ class EliminarContactoScreen(MDScreen):
         self.dialog = None
         self.create_ui()
 
+    #Interfaz de usuario de la pantalla eliminar contacto.
     def create_ui(self):
         layout = MDBoxLayout(orientation="vertical", padding=dp(20), spacing=dp(10))
         
@@ -48,8 +49,7 @@ class EliminarContactoScreen(MDScreen):
         
         self.add_widget(layout)
 
-
-
+    #Mostrar mensaje 
     def mostrar_mensaje(self, mensaje):
         if not hasattr(self, 'mensaje_dialog') or self.mensaje_dialog is None:
             self.mensaje_dialog = MDDialog(
@@ -63,6 +63,7 @@ class EliminarContactoScreen(MDScreen):
             self.mensaje_dialog.text = mensaje
         self.mensaje_dialog.open()
 
+    #Mostrar contasto buscado por nombre
     def buscar_contacto(self, instance):
         nombre_buscar = self.busqueda_field.text.strip()
         contacto = self.db.buscar_por_nombre(nombre_buscar)
@@ -75,6 +76,7 @@ class EliminarContactoScreen(MDScreen):
         else:
             self.mostrar_mensaje("Contacto no encontrado")
 
+    #Confirmacion de eliminacion
     def confirmar_eliminar(self, instance):
         if hasattr(self, 'contacto_id'):
             self.dialog = MDDialog(
@@ -89,6 +91,7 @@ class EliminarContactoScreen(MDScreen):
         else:
             self.mostrar_mensaje("Primero busque un contacto")
 
+    #Eliminar contacto
     def eliminar_contacto(self):
         self.db.eliminar(self.contacto_id)
         self.dialog.dismiss()

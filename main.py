@@ -12,13 +12,16 @@ class ContactosApp(MDApp):
     def build(self):
         self.db = ContactoDB()
         sm = MDScreenManager()
+
+        # Añadir las pantallas a la principal.
         sm.add_widget(MenuScreen(name="menu"))
         sm.add_widget(ListaContactosScreen(name="mostrar_contactos"))
         sm.add_widget(AgregarContactoScreen(name="Agregar_contacto"))
         sm.add_widget(EliminarContactoScreen(name="eliminar_contacto"))
         sm.add_widget(ModificarContactoScreen(self.db, name="modificar_contacto"))
         return sm
-    
+
+    #Agregar contactos a la base de datos.
     def Agregar_contacto(self, nombre, telefono, correo):
         if nombre and telefono and correo:
             self.db.agregar(nombre, telefono, correo)
@@ -29,6 +32,7 @@ class ContactosApp(MDApp):
         else: 
             print("Todos los campos son obligatorios")
             
+    #Mostrar los contactos registrados en la base de datos.
     def mostrar_contactos(self):
         pantalla = self.root.get_screen("mostrar_contactos")
         pantalla.actualizar_lista()

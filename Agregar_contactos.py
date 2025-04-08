@@ -10,8 +10,8 @@ class AgregarContactoScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        #Interfaz de usuario de la pantalla agregar contacto.
         layout = MDBoxLayout(orientation="vertical", padding=dp(20), spacing=dp(10))
-
         
         titulo = MDLabel(
             text="Agregar Contacto",
@@ -21,28 +21,24 @@ class AgregarContactoScreen(MDScreen):
         )
         layout.add_widget(titulo)
 
-        # Campo nombre
         self.input_nombre = MDTextField(
             hint_text="Nombre"
         )
         layout.add_widget(self.input_nombre)
 
-        # Campo teléfono
         self.input_telefono = MDTextField(
             hint_text="Teléfono",
             input_filter="int"
         )
-        # Limita a 10 dígitos
+
         self.input_telefono.bind(text=self.validar_longitud_telefono)
         layout.add_widget(self.input_telefono)
 
-        # Campo correo
         self.input_correo = MDTextField(
             hint_text="Correo"
         )
         layout.add_widget(self.input_correo)
 
-        # Botón guardar
         boton_guardar = MDRaisedButton(
             text="Guardar",
             pos_hint={"center_x": 0.5},
@@ -50,7 +46,6 @@ class AgregarContactoScreen(MDScreen):
         )
         layout.add_widget(boton_guardar)
 
-        # Botón volver
         boton_volver = MDRaisedButton(
             text="Volver",
             pos_hint={"center_x": 0.5},
@@ -60,15 +55,18 @@ class AgregarContactoScreen(MDScreen):
 
         self.add_widget(layout)
 
+    #Limpiar los campos de texto.
     def on_pre_enter(self):
         self.input_nombre.text = ""
         self.input_telefono.text = ""
         self.input_correo.text = ""
 
+    #Solo permitir 10 numeros.
     def validar_longitud_telefono(self, instance, value):
         if len(value) > 10:
-            instance.text = value[:10]  # Solo deja los primeros 10 caracteres
+            instance.text = value[:10]  
 
+    #guardar contactos 
     def guardar_contacto(self):
         nombre = self.input_nombre.text.strip()
         telefono = self.input_telefono.text.strip()
